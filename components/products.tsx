@@ -1,78 +1,68 @@
 import Link from "next/link"
 import Image from "next/image"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
+import { productsQuery } from "@/utils/shopify/productsQuery"
+import { storefront } from "@/utils"
 
-const products = [
+interface ProductProps {
+  products: {
+    edges: Array<{
+      node: {
+        title: string
+        handle: string
+        description: string
+        priceRange: {  // Changed from priceRangeV2
+          minVariantPrice: {
+            amount: string
+          }
+        }
+        media: {
+          nodes: Array<{
+            image: {  // Removed preview level
+              url: string
+              altText: string
+            }
+          }>
+        }
+      }
+    }>
+  }
+}
 
+export default function Products({ products }: ProductProps) {
+  console.log('Shopify products:', products)
 
-  {
-    id: 1,
-    name: 'Basic Tee',
-    href: '#',
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: '$35',
-    color: 'Black',
-  },
-  {
-    id: 2,
-    name: 'Basic Tee',
-    href: '#',
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-02.jpg',
-    imageAlt: "Front of men's Basic Tee in white.",
-    price: '$35',
-    color: 'Aspen White',
-  },
-  {
-    id: 3,
-    name: 'Basic Tee',
-    href: '#',
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-03.jpg',
-    imageAlt: "Front of men's Basic Tee in dark gray.",
-    price: '$35',
-    color: 'Charcoal',
-  },
-  {
-    id: 4,
-    name: 'Artwork Tee',
-    href: '#',
-    imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-related-product-04.jpg',
-    imageAlt: "Front of men's Artwork Tee in peach with white and brown dots forming an isometric cube.",
-    price: '$35',
-    color: 'Iso Dots',
-  },
-]
-
-export default function Products() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <h2 className="text-2xl font-bold tracking-tight text-foreground">Customers also purchased</h2>
+      <h2 className="text-2xl font-bold tracking-tight text-foreground">Our Products</h2>
 
-        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-          {products.map((product) => (
-            <div key={product.id} className="group relative">
-              <img
-                width={500}
-                height={500}
-                alt={product.imageAlt}
-                src={product.imageSrc}
-                className="aspect-square w-full rounded-md bg-muted-foreground object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80"
-              />
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <h3 className="text-sm text-foreground">
-                    <Link href={product.href}>
-                      <span aria-hidden="true" className="absolute inset-0" />
-                      {product.name}
-                    </Link>
-                  </h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{product.color}</p>
-                </div>
-                <p className="text-sm font-medium text-foreground">{product.price}</p>
+      <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        {products?.edges?.map(({ node: product }) => (
+          <div key={product.handle} className="group relative">
+            <img
+              width={500}
+              height={500}
+              alt={product.media.nodes[0]?.image.altText || product.title}
+              src={product.media.nodes[0]?.image.url}
+              className="aspect-square w-full rounded-md bg-muted-foreground object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80"
+            />
+            <div className="mt-4 flex justify-between">
+              <div>
+                <h3 className="text-sm text-foreground">
+                  <Link href={`/products/${product.handle}`}>
+                    <span aria-hidden="true" className="absolute inset-0" />
+                    {product.title}
+                  </Link>
+                </h3>
+                <p className="mt-1 text-sm text-muted-foreground">{product.description}</p>
               </div>
+              <p className="text-sm font-medium text-foreground">
+                ${parseFloat(product.priceRange.minVariantPrice.amount).toFixed(2)}
+              </p>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
+    </div>
   )
 }
