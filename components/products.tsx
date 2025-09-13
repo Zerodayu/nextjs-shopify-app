@@ -1,8 +1,4 @@
 import Link from "next/link"
-import Image from "next/image"
-import { AspectRatio } from "@/components/ui/aspect-ratio"
-import { productsQuery } from "@/utils/shopify/productsQuery"
-import { storefront } from "@/utils"
 
 interface ProductProps {
   products: {
@@ -42,7 +38,7 @@ export default function Products({ products }: ProductProps) {
               height={500}
               alt={product.media.nodes[0]?.image.altText || product.title}
               src={product.media.nodes[0]?.image.url}
-              className="aspect-square w-full rounded-md bg-muted-foreground object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80"
+              className="aspect-square w-full rounded-md bg-muted-foreground object-cover group-hover:scale-105 lg:aspect-auto lg:h-80 transition-all duration-300"
             />
             <div className="mt-4 flex justify-between">
               <div>
