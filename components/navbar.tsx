@@ -1,6 +1,5 @@
 
 import Link from "next/link"
-import Logo from "@/components/logo"
 import { Button } from "@/components/ui/button"
 import {
   NavigationMenu,
@@ -14,11 +13,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-import {BookOpen, ArrowUpRight} from "lucide-react"
+import {BookOpen, ArrowUpRight, Target} from "lucide-react"
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
-  { href: "#", label: "Home", active: true },
+  { href: "/", label: "Home", active: true },
   { href: "#", label: "Features" },
   { href: "#", label: "Pricing" },
   { href: "#", label: "About" },
@@ -83,9 +82,9 @@ export default function Navbar() {
           </div>
           {/* Main nav */}
           <div className="flex items-center gap-6">
-            <a href="#" className="text-primary hover:text-primary/90">
-              <Logo />
-            </a>
+            <Link href="/" className="text-primary hover:text-primary/90">
+              <Target size={32} />
+            </Link>
             {/* Navigation menu */}
             <NavigationMenu className="h-full *:h-full max-md:hidden">
               <NavigationMenuList className="h-full gap-2">
