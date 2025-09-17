@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Next.js Shopify App",
+  title: "MirroriFy - AI Virtual Try-On",
   description: "AI Virtual Try-On Shopify App",
 };
 
