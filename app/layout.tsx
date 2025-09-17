@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Next.js Shopify App",
-  description: "Next.js Shopify App with Storefront API",
+  description: "AI Virtual Try-On Shopify App",
 };
 
 export default function RootLayout({
@@ -33,7 +33,7 @@ export default function RootLayout({
         }}
       >
           <Navbar />
-          {children}s
+          {children}
       </body>
     </html>
   );
