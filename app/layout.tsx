@@ -27,10 +27,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
+        style={{
+          background: "fixed radial-gradient(125% 125% at 50% 10%, #000000 40%, #0d1a36 100%)",
+        }}
       >
-        <Navbar />
-        {children}
+          <Navbar />
+          {children}s
       </body>
     </html>
   );
