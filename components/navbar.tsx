@@ -1,3 +1,5 @@
+
+import Link from "next/link"
 import Logo from "@/components/logo"
 import { Button } from "@/components/ui/button"
 import {
@@ -11,6 +13,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+
+import {BookOpen, ArrowUpRight} from "lucide-react"
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
@@ -90,7 +94,7 @@ export default function Navbar() {
                     <NavigationMenuLink
                       active={link.active}
                       href={link.href}
-                      className="text-muted-foreground hover:text-primary border-b-primary hover:border-b-primary data-[active]:border-b-primary h-full justify-center rounded-none border-y-2 border-transparent py-1.5 font-medium hover:bg-transparent data-[active]:bg-transparent!"
+                      className="text-muted-foreground hover:text-primary border-b-primary hover:border-b-primary data-[active]:border-b-primary h-full justify-center rounded-none border-y-2 border-transparent py-1.5 hover:bg-transparent data-[active]:bg-transparent!"
                     >
                       {link.label}
                     </NavigationMenuLink>
@@ -102,11 +106,13 @@ export default function Navbar() {
         </div>
         {/* Right side */}
         <div className="flex items-center gap-2">
-          <Button asChild variant="ghost" size="sm" className="text-sm">
-            <a href="#">Sign In</a>
+          <Button variant="ghost">
+            <Link href="#">Docs</Link>
+            <BookOpen size={20} />
           </Button>
-          <Button asChild size="sm" className="text-sm">
-            <a href="#">Get Started</a>
+          <Button>
+            <Link href="#">Try it free</Link>
+            <ArrowUpRight size={20} />
           </Button>
         </div>
       </div>
